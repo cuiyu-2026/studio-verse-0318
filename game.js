@@ -1,4 +1,4 @@
-import { supabase, isRemoteEnabled } from "./src/supabase.js";
+import { supabase, isRemoteEnabled } from "./supabase.js";
 
 const SAVE_KEY = "studio-verse-v1-save";
 const SAVE_VERSION = 3;
