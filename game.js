@@ -432,11 +432,17 @@ function showGame() {
 }
 
 function selectDesk(deskId) {
+  if (state.deskId === deskId && deskDialog.hidden) return;
   state.deskId = deskId;
   state.lastAction = "idle";
   saveState();
-  renderCharacterPanel();
-  if (deskDialog.open) deskDialog.close();
+  try { renderCharacterPanel(); } catch (error) { console.error(error); }
+  try { if (deskDialog.open) deskDialog.close(); } catch {}
+  deskDialog.removeAttribute("open");
+  deskDialog.hidden = true;
+  startScreen.hidden = true;
+  gameScreen.hidden = false;
+  try { renderAll(); } catch (error) { console.error(error); }
   showToast(`已选择工位 ${deskId}`);
 }
 
