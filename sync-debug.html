@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Supabase Sync Test</title>
+<style>
+body{font-family:Arial,sans-serif;background:#07182b;color:#f0e6d2;padding:30px}main{max-width:640px;margin:auto}input,button{display:block;width:100%;padding:12px;margin:8px 0;box-sizing:border-box}button{background:#f1b667;border:0;font-weight:700;cursor:pointer}pre{white-space:pre-wrap;background:#0d2540;padding:14px;border:1px solid #31506d}
+</style>
+</head>
+<body>
+<main>
+<h1>Supabase 工作室同步测试</h1>
+<p id="user">正在读取登录状态...</p>
+<input id="studio-id" placeholder="工作室 ID，例如 ST-260921-ABCD">
+<input id="studio-name" placeholder="工作室名称，例如 郝梦天">
+<button id="test-button">测试写入 Supabase</button>
+<pre id="result">等待测试...</pre>
+</main>
+<script type="module">
+import { supabase } from './supabase.js';
+const result = document.getElementById('result');
+const userBox = document.getElementById('user');
+const { data: { user } } = await supabase.auth.getUser();
+userBox.textContent = user ? '已登录：' + user.email + ' / ' + user.id : '未登录：请先回到游戏页面登录';
+document.getElementById('test-button').addEventListener('click', async () => {
+  if (!user) { result.textContent = '未登录，不能写入'; return; }
+  const id = document.getElementById('studio-id').value.trim();
+  const name = document.getElementById('studio-name').value.trim();
+  if (!id || !name) { result.textContent = '请填写工作室 ID 和名称'; return; }
+  result.textContent = '正在写入...';
+  const { data, error } = await supabase.from('studios').upsert({
+    id, name, type: 'content', owner_id: user.id, check_in_time: '09:00', office_layout: 'default'
+  }).select('*');
+  result.textContent = error ? '失败：\n' + JSON.stringify(error, null, 2) : '成功：\n' + JSON.stringify(data, null, 2);
+});
+</script>
+</body>
+</html>
