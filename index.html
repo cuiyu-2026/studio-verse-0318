@@ -268,11 +268,11 @@
       <h2>选择你的办公位</h2>
       <p class="desk-intro">入职后需要从核心办公区的五个工位中选择一个。工位会显示在人物状态栏中。</p>
       <div class="desk-options">
-        <button class="desk-option" type="button" data-desk="A1"><strong>A1 窗边位</strong><span>安静、光线好，适合专注工作。</span></button>
-        <button class="desk-option" type="button" data-desk="A2"><strong>A2 中心位</strong><span>位于核心区中央，方便协作。</span></button>
-        <button class="desk-option" type="button" data-desk="A3"><strong>A3 安静位</strong><span>远离门口，适合处理复杂任务。</span></button>
-        <button class="desk-option" type="button" data-desk="A4"><strong>A4 协作位</strong><span>靠近讨论区域，消息流转更快。</span></button>
-        <button class="desk-option" type="button" data-desk="A5"><strong>A5 资料位</strong><span>靠近资料室，方便整理日报。</span></button>
+        <button class="desk-option" type="button" data-desk="A1" onclick="window.selectDesk && window.selectDesk('A1')"><strong>A1 窗边位</strong><span>安静、光线好，适合专注工作。</span></button>
+        <button class="desk-option" type="button" data-desk="A2" onclick="window.selectDesk && window.selectDesk('A2')"><strong>A2 中心位</strong><span>位于核心区中央，方便协作。</span></button>
+        <button class="desk-option" type="button" data-desk="A3" onclick="window.selectDesk && window.selectDesk('A3')"><strong>A3 安静位</strong><span>远离门口，适合处理复杂任务。</span></button>
+        <button class="desk-option" type="button" data-desk="A4" onclick="window.selectDesk && window.selectDesk('A4')"><strong>A4 协作位</strong><span>靠近讨论区域，消息流转更快。</span></button>
+        <button class="desk-option" type="button" data-desk="A5" onclick="window.selectDesk && window.selectDesk('A5')"><strong>A5 资料位</strong><span>靠近资料室，方便整理日报。</span></button>
       </div>
     </form>
   </dialog>
@@ -324,7 +324,7 @@
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script type="module" src="./game.js"></script>
+  <script type="module" src="./game-fixed.js?v=2"></script>
 </body>
 </html>
 
