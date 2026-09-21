@@ -2018,3 +2018,24 @@ async function submitJoinRequest(profile, identityId) {
     status: "pending"
   }, { onConflict: "studio_id,user_id" });
 }
+
+deskDialog.addEventListener("cancel", (event) => {
+  if (!state?.deskId) {
+    event.preventDefault();
+    showToast("请先选择一个办公位。");
+  }
+});
+
+deskDialog.addEventListener("click", (event) => {
+  const option = event.target.closest("[data-desk]");
+  if (!option || !state) return;
+  selectDesk(option.dataset.desk);
+});
+
+document.querySelectorAll("[data-desk]").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    if (state) selectDesk(button.dataset.desk);
+  });
+});
